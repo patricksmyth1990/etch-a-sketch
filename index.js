@@ -27,3 +27,17 @@ square.forEach((item) => {
         item.setAttribute('class', 'hoveredOver');
     });
 });
+
+// replaces the 16 x 16 grid with a new one with up to 100 x 100 squares, depending on the user's input on a prompt
+let button = document.querySelector('button');
+
+button.addEventListener('click', function() {
+    const number = parseInt(prompt('How many squares do you want in the grid? You can enter a number between 16 and 100.'));
+    if (number > 15 && number < 101) {
+        document.removeChild(parentDiv);
+        const newGrid = document.createElement('div');
+        newGrid.setAttribute('id', 'parentDiv');
+        document.insertBefore(newGrid, 'button');
+        createGrid(number);
+    };
+});

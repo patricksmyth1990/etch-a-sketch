@@ -7,16 +7,15 @@
 body {
     width: 100vh;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: auto;
 }
 
 #parentDiv {
-    position: absolute;
     width: 800px;
     height: 800px;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
@@ -24,4 +23,9 @@ body {
 
 .hoveredOver {
     background-color: black;
+}
+
+button {
+    margin: 5px;
+    align-self: flex-start;
 }
