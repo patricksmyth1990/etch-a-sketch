@@ -12,6 +12,7 @@ function createGrid(number) {
         childDiv.style.width = strFraction + '%';
         childDiv.style.height = strFraction + '%';
         childDiv.setAttribute('class', 'square');
+        childDiv.setAttribute('hover-count', '0');
         parentDiv.appendChild(childDiv);
     }
     return;
@@ -19,11 +20,23 @@ function createGrid(number) {
 
 // creates the initial 16 x 16 grid
 createGrid(16);
-// changes the color of any square when moused over
+
+// darkens the square by a percentage
+function darkenSquare(square, percentage) {
+    let hoverCount = parseInt(square.getAttribute('hover-count'));
+    hoverCount = Math.min(hoverCount + 1, 10);
+    square.setAttribute('hover-count', hoverCount);
+    // because each square's background color starts as 100% white, I used the calculation 
+    // below to reduce that value by a percentage each each time the square is hovered over
+    const newColorValue = 100 - hoverCount * percentage;
+    square.style.backgroundColor = `rgb(${newColorValue}%, ${newColorValue}%, ${newColorValue}%)`;
+};
+
+// event listener for mouseover to darken the square
 let square = document.querySelectorAll('.square');
 square.forEach((item) => {
     item.addEventListener('mouseover', function() {
-        item.setAttribute('class', 'hoveredOver');
+        darkenSquare(item, 10);
     });
 });
 
@@ -37,13 +50,15 @@ button.addEventListener('click', function() {
         newGrid.setAttribute('id', 'parentDiv');
         body.insertBefore(newGrid, button);
         createGrid(number);
-    } else {
-        window.alert('Please try again and enter a number between 16 and 100.')
-    };
-    square = document.querySelectorAll('.square');
-    square.forEach((item) => {
-        item.addEventListener('mouseover', function() {
-            item.setAttribute('class', 'hoveredOver');
+        
+        // reattach the event listener to the new squares
+        square = document.querySelectorAll('.square');
+        square.forEach((item) => {
+            item.addEventListener('mouseover', function() {
+                darkenSquare(item, 10);
+            });
         });
-    });
+    } else {
+        window.alert('Please try again and enter a number between 16 and 100.');
+    }
 });

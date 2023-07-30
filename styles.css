@@ -21,10 +21,6 @@ body {
     flex-wrap: wrap;
 }
 
-.hoveredOver {
-    background-color: black;
-}
-
 button {
     margin: 5px;
     align-self: flex-start;
